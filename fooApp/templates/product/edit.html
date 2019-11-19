@@ -1,40 +1,27 @@
 {% extends 'base.html' %}
 
-{% from 'product/macroProd.html' import prova %}
+{% from 'product/common.html' import edit_field %}
 
-{% block title %}
-    Edit Product
-{% endblock title %}
+{% set title = 'Add Product' %}
+
+{% block title %}{{ title }}{% endblock title %}
 
 {% block main %}
-    <div class="row">
-        <div class="login well offset2 span8">
-            <form method="post" class="form-horizontal">
-                <legend>Create new product</legend>
-                {% if error %}<p class="alert alert-error">{{ error }}</p>{% endif %}
-                <div class="control-group">
-                    {{ form.name.label(class="control-label") }}
-                    <div class="controls">
-                        {{ form.name(placeholder=product.name) }}
-                        {% for error in form.name.errors %}<span class="help-inline">{{ error }}</span>{% endfor %}
-                    </div>
-                </div>
-                <div class="control-group">
-                    {{ form.description.label(class="control-label") }}
-                    <div class="controls">
-                        {{ form.description(placeholder=product.description) }}
-                    </div>
-                </div>
-                <div class="control-group">
-                    {{ form.price.label(class="control-label") }}
-                    <div class="controls">
-                        {{ form.price(placeholder=product.price) }}
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn">Save</button>
-                </div>
-            </form>
-        </div>
+<div class="row">
+  <div class="product-edit well offset2 span8">
+  <form method="post" class="form-horizontal">
+    <legend>{{ name }}</legend>
+    {{ edit_field(form.name, maxlength=255, class="span3",
+      placeholder="Product name") }}
+    {{ edit_field(form.description, rows="5", class="span5",
+      placeholder="Product description.") }}
+    {{ edit_field(form.price, class="span3",
+      placeholder="0.01") }}
+    <div class="form-actions">
+    <button type="submit" class="btn">Save</button>
+    or <a href="{{ url_for('products_list') }}">Cancel</a>
     </div>
+  </form>
+  </div>
+</div>
 {% endblock main %}

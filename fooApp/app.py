@@ -90,7 +90,7 @@ def product_create():
     # Success. Send user back to full product list.
     return redirect(url_for('products_list'))
   # Either first load or validation error at this point.
-  return render_template('products/edit.html', form=form)
+  return render_template('product/edit.html', form=form)
 
 @app.route('/products/<product_id>/')
 @login_required
