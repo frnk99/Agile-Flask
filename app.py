@@ -17,7 +17,6 @@ app.config['MONGO_URI'] = 'mongodb+srv://alvarovillamarin:alvaro4444@cluster0-in
 
 app.config['SECRET_KEY'] = 'enydM2ANhdcoKwdVa0jWvEsbPFuQpMjf'
 app.config['SESSION_PROTECTION'] = 'strong'
-
 mongo = PyMongo(app)
 
 # Use Flask-Login to track current user in Flask's session.
@@ -81,16 +80,7 @@ def products_list():
     # Query: Get all Products objects, sorted by date.
     products = mongo.db.products.find()[:]
     return render_template('product/index.html', products=products)
-@app.route('/products/create/', methods=['GET', 'POST'])
-def product_create():
-  """Provide HTML form to create a new product."""
-  form = ProductForm(request.form)
-  if request.method == 'POST' and form.validate():
-    mongo.db.products.insert_one(form.data)
-    # Success. Send user back to full product list.
-    return redirect(url_for('products_list'))
-  # Either first load or validation error at this point.
-  return render_template('product/edit.html', form=form)
+
 
 @app.route('/products/<product_id>/')
 @login_required
